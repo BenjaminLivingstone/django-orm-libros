@@ -1,0 +1,179 @@
+Asignatura: Libros / Autores (Shell)
+Objetivos:
+Practica el uso de Django Shell para ejecutar comandos ORM para manipular nuestra base de datos
+Practica relaciones de muchos a muchos
+Crea un nuevo proyecto llamado book_authors_proj y una aplicación llamada books_authors_app . Usa el siguiente diagrama como guía para diseñar sus modelos:
+
+
+
+Crear el modelo de clase de libro
+
+from django.db import models
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    desc = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+Crear el modelo de clase de autor
+
+class Author(models.Model):
+    first_name = models.CharField(max_length=45)
+    last_name = models.CharField(max_length=45)
+    books = models.ManyToManyField(Book, related_name="authors")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+Crea y ejecuta los archivos de migración para crear las tablas en su base de datos.
+
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py shell
+from books_authors_app.models import *
+
+ 
+Crea un archivo .txt donde guardará cada una de sus consultas desde abajo
+
+OK
+
+Consulta: crea 5 libros con los siguientes nombres: C Sharp, Java, Python, PHP, Ruby
+
+book1=Book.objects.create(title="C Sharp")
+book2=Book.objects.create(title="Java")
+book3=Book.objects.create(title="Python")
+book4=Book.objects.create(title="PHP")
+book5=Book.objects.create(title="Ruby")
+
+Consulta: Crea 5 autores diferentes: Jane Austen, Emily Dickinson, Fyodor Dostoevksy, William Shakespeare, Lau Tzu
+
+author1=Author.objects.create(first_name="Emily", last_name="Dickinson")
+author2=Author.objects.create(first_name="Jane", last_name="Austin")
+author3=Author.objects.create(first_name="Fyodor", last_name="Dostoevksy")
+author4=Author.objects.create(first_name="William", last_name="Shakespeare")
+author5=Author.objects.create(first_name="Lau", last_name="Tzu")  
+
+Agregue un nuevo campo de texto en la tabla de autores llamado 'notas'.
+
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    desc = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Author(models.Model):
+    first_name = models.CharField(max_length=45)
+    last_name = models.CharField(max_length=45)
+    books = models.ManyToManyField(Book, related_name="authors")
+    notes = models.TextField(max_length=255, default="")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+Cree y ejecute los archivos de migración para actualizar la tabla en su base de datos.
+ 
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py shell
+ 
+from books_authors_app.models import *
+
+book1=Book.objects.get(id=1)
+book2=Book.objects.get(id=2)
+book3=Book.objects.get(id=3)
+book4=Book.objects.get(id=4)
+book5=Book.objects.get(id=5)
+
+author1=Author.objects.get(id=1)
+author2=Author.objects.get(id=2)
+author3=Author.objects.get(id=3)
+author4=Author.objects.get(id=4)
+author5=Author.objects.get(id=5)
+
+Consulta: cambie el nombre del libro de C Sharp a C #
+
+book1.title="C#"
+book1.save()
+
+Consulta: cambie el nombre del cuarto autor a Bill
+
+author4.first_name="Bill"
+author4.save()
+
+Consulta: Asigna el primer autor a los primeros 2 libros.
+
+author1.books.add(book1)
+author1.books.add(book2)
+author1.save()
+
+Consulta: Asigne el segundo autor a los primeros 3 libros.
+
+author2.books.add(book1)
+author2.books.add(book2)
+author2.books.add(book3)
+author2.save()
+
+Consulta: Asigna el tercer autor a los primeros 4 libros.
+
+author3.books.add(book1)
+author3.books.add(book2)
+author3.books.add(book3)
+author3.books.add(book4)
+author3.save()
+
+Consulta: Asigne el cuarto autor a los primeros 5 libros (o en otras palabras, todos los libros)
+author4.books.add(book1)
+author4.books.add(book2)
+author4.books.add(book3)
+author4.books.add(book4)
+author4.books.add(book5)
+author4.save()
+
+books=Book.objects.all()
+for b in books:
+    author4.books.add(b)
+
+Consulta: recupera a todos los autores del tercer libro
+
+fyodorbooks=book3.authors.all()
+print (book3)
+for b in fyodorbooks:
+    print(b)
+
+Consulta: eliminar al primer autor del tercer libro
+
+book3.authors.all()
+authorbook3=book3.authors.first()
+book3.authors.remove(authorbook3)
+book3.authors.all()
+
+Consulta: Agregue el quinto autor como uno de los autores del segundo libro.
+
+author5.books.add(book2)
+
+Consulta: Encuentra todos los libros de los que el tercer autor es parte
+
+author3.books.all()
+
+Consulta: Encuentra todos los autores que contribuyeron al quinto libro.
+
+book5.authors.all()
+
+Envíe su archivo .txt que contiene todas las consultas que ejecutó en el shell
+OK
+
+
+
+
+
+
+
+
+
+
+
+
+Consulta: recupera a todos los autores del tercer libro
+
+
+
