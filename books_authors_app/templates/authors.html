@@ -21,27 +21,34 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-1 mt-2">
+            <div class="col-2 mt-3">
                 <!-- <form method=""> -->
                 <div class="mb-3 w-75">
-                    <label class="form-label">Title</label>
+                    <label class="form-label">First Name</label>
                 </div>
                 <div class="mb-3 w-75">
-                    <label class="form-label">Description</label>
+                    <label class="form-label">Last Name</label>
+                </div>
+                <div class="mb-3 w-75">
+                    <label class="form-label">Notes</label>
                 </div>
                 <!-- </form> -->
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <h1></h1>
-                <form action="/addbook/" method="POST">
+                <form action="/addauthor/" method="POST">
                     {%csrf_token%}
                     <div class="mb-3 w-75">
-                        <input type="text" class="form-control" name="book_title" id="book_title" aria-describedby=" emailHelp">
+                        <input type="text" class="form-control" name="author_first_name" id="author_first_name" aria-describedby=" emailHelp">
+                        <!-- <div id="emailHelp " class="form-text ">We'll never share your email with anyone else.</div> -->
+                    </div>
+                    <div class="mb-3 w-75">
+                        <input type="text" class="form-control" name="author_last_name" id="author_last_name" aria-describedby=" emailHelp">
                         <!-- <div id="emailHelp " class="form-text ">We'll never share your email with anyone else.</div> -->
                     </div>
                     <div class="mb-3 w-75 ">
                         <div class="form-group ">
-                            <textarea class="form-control " rows="5 " name="book_desc" id="book_desc"></textarea>
+                            <textarea class="form-control " rows="5 " name="author_notes" id="author_notes"></textarea>
                         </div>
                     </div>
                     <button type="submit " class="btn btn-primary ">Submit</button>
@@ -57,10 +64,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for b in books %}
+                        {% for a in authors %}
                         <tr>
-                            <th scope="row ">{{b.id}}</th>
-                            <td>{{b.title}}</td>
+                            <th scope="row ">{{a.id}}</th>
+                            <td>{{a.first_name}} {{a.last_name}}</td>
                             <td><a href=" ">Views</a></td>
                         </tr>
                         {% endfor %}
