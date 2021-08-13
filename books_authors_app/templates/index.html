@@ -13,15 +13,12 @@
     {% load static %}
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <!-- <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg> -->
-                <span class="fs-4">{{title}}</span>
-            </a>
+            <h1>{{title}}</h1>
         </header>
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-1 mt-2">
+            <div class="col-2 mt-2">
                 <!-- <form method=""> -->
                 <div class="mb-3 w-75">
                     <label class="form-label">Title</label>
@@ -31,7 +28,7 @@
                 </div>
                 <!-- </form> -->
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <h1></h1>
                 <form action="/addbook/" method="POST">
                     {%csrf_token%}
@@ -61,7 +58,7 @@
                         <tr>
                             <th scope="row ">{{b.id}}</th>
                             <td>{{b.title}}</td>
-                            <td><a href=" ">Views</a></td>
+                            <td><a href="books/{{b.id}}">Views</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
