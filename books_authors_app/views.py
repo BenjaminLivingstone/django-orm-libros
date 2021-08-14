@@ -9,7 +9,7 @@ def index(request):
     return render(request, "index.html", context)
 
 def addbook(request):
-    # print(request.POST) Se usa para veriicar Verificar !!!
+    # print(request.POST) Se usa para VERIFICAR !!!
     book=Book.objects.create(title=request.POST['book_title'], desc=request.POST['book_desc'])
     return redirect("/")
 
@@ -40,16 +40,21 @@ def authordetail (request, num):
     }
     return render(request, "authordetails.html", context)
 
-def addbooktoauthor (request):
-    context = {
-        "author": Author.objects.get(id=num),
-        "allbooks": Book.objects.all(),
-        # "authordetail": Book.objects.get(id=num).authors.all()
-    }
 
 def addauthortobook (request):
-    context = {
-        "author": Author.objects.get(id=num),
-        "allbooks": Book.objects.all(),
-        # "authordetail": Book.objects.get(id=num).authors.all()
-    }
+    print(request.POST)
+    newbookid=request.POST["bookid"]
+    newauthorid= request.POST["authorid"]
+    newbook=Book.objects.get(id=newbookid)
+    newauthor=Author.objects.get(id=newauthorid)
+    addbook=newbook.authors.add(newauthor)
+    return redirect(f"/books/{newbookid}")
+
+def addbooktoauthor (request):
+    print(request.POST)
+    newbookid=request.POST["bookid"]
+    newauthorid= request.POST["authorid"]
+    newbook=Book.objects.get(id=newbookid)
+    newauthor=Author.objects.get(id=newauthorid)
+    addauthor=newauthor.books.add(newbook)
+    return redirect(f"/authors/{newauthorid}")
