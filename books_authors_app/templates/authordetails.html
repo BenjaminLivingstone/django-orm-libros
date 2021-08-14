@@ -25,7 +25,7 @@
         <form action="/newbook" method="POST">
             {%csrf_token%}
             <select name="bookid" class="form-select w-25" aria-label="Default select example">
-            <option selected vale="">- select a book -</option>
+            <option selected>- select a book -</option>
             {% for b in allbooks %}
                 {% comment %} {%if not b in allbooks%}  {% endcomment %}
                     <option value="{{b.id}}">{{b.title}}</option>

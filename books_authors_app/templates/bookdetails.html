@@ -30,7 +30,7 @@
         <form action="/newauthor" method="POST">
             {%csrf_token%}
             <select name="authorid" class="form-select w-25" aria-label="Default select example">
-            <option selected value="">- select a book -</option>
+            <option selected>- select a book -</option>
             {% for a in allauthors %}
             <option value="{{a.id}}">{{a}}</option>
             {% endfor %}        
