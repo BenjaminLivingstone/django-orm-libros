@@ -28,10 +28,10 @@ def addauthor(request):
 def bookdetail (request, num):
     context = {
         "book": Book.objects.get(id=num),
-        # "books": Book.objects.all(),
-        "bookdetail": Book.objects.get(id=num).authors.all()
-        # "title":
+        "allauthors": Author.objects.all(),
 
+        # "bookdetail": Book.objects.get(id=num).authors.all()
+        # "title":
     }
     return render(request, "authorsandbooks.html", context)
 
@@ -39,17 +39,8 @@ def authordetail (request, num):
     context = {
         # "title":
         "author": Author.objects.get(id=num),
-        "authordetail": Book.objects.get(id=num).authors.all()
+        "allbooks": Book.objects.all(),
 
+        # "authordetail": Book.objects.get(id=num).authors.all()
     }
     return render(request, "authorsandbooks.html", context)
-
-# def some_method(request):
-
-# 	return redirect("/") 
-
-# def books(request):
-#     context = {
-#         "title": "Add a Book",
-#     }
-#     return render(request, "books.html", context)
